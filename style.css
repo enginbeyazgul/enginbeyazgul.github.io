@@ -94,7 +94,7 @@ nav ul li a:hover
 .me::after
 {
     content: "";
-    animation: change ease-in 15s  infinite;
+    animation: change ease-in 12s  infinite;
 }
 @keyframes change
 {

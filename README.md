@@ -1,2 +1,1 @@
-# enginbeyazgul.github.io
-Kişisel Website
+Engin Beyazgül
