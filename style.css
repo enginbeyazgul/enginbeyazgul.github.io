@@ -1,0 +1,274 @@
+body
+{
+    margin: 0;
+    padding: 0;
+    font-family: impact;
+    background-image: url(img/bg.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+.c-row
+{
+    display: flex;
+    justify-content: center;
+    
+}
+.c-col
+{
+    display: flex;
+    align-items: center;
+}
+.c-inline-row
+{
+    display: inline-flex;
+    justify-content: center;
+}
+.c-inline-col
+{
+    display: inline-flex;
+    align-items: center;
+}
+header
+{
+    position: relative;
+    width: 100%;
+    height: 75px;
+}
+.container
+{
+    position: relative;
+    width: 50%;
+    height: auto;
+    margin: auto;
+    flex-wrap: wrap;
+    border-radius: 100px;
+}
+nav
+{
+    position: absolute;
+    width: 80%;
+    height: 100%;
+    border-radius: 0 0 40px 40px;
+}
+nav>a
+{
+    margin-top: -200px;
+    position: absolute;
+    left: 0px;
+    color: rgba(61, 59, 63, 1);
+    padding-top: 15px;
+    float: left;
+    transition: all 0.4s
+}
+nav ul
+{
+    margin-left: 0px;
+    padding: 0;
+    text-decoration: none;
+    transition: all 0.4s;
+}
+nav ul li
+{
+    list-style: none;
+}
+nav ul li a
+{
+    text-decoration: none;
+    color: rgba(61, 59, 63, 1);
+    font-size: 17px;
+    padding: 5px 20px;
+    border-radius: 15.5px;
+}
+nav ul li a:hover
+{
+    transition-duration: 0.4s;
+    background-color: rgba(51, 50, 60, 0.4);
+    color: aliceblue;
+}
+
+.me
+{
+    color: rgba(61, 59, 63, 1);
+    
+}
+.me::after
+{
+    content: "";
+    animation: change ease-in 15s  infinite;
+}
+@keyframes change
+{
+    3%{content: "M";}
+    6%{content: "Me";}
+    9%{content: "Mer";}
+    12%{content: "Merh";}
+    15%{content: "Merha";}
+    18%{content: "Merhab";}
+    21%{content: "Merhaba";}
+    24%{content: "Merhaba!";}
+    27%{content: "Merhaba! B";}
+    30%{content: "Merhaba! Be";}
+    33%{content: "Merhaba! Ben";}
+    36%{content: "Merhaba! Ben E";}
+    39%{content: "Merhaba! Ben En";}
+    42%{content: "Merhaba! Ben Eng";}
+    45%{content: "Merhaba! Ben Engi";}
+    48%{content: "Merhaba! Ben Engin";}
+    51%{content: "Merhaba! Ben Engi";}
+    54%{content: "Merhaba! Ben En";}
+    57%{content: "Merhaba! Ben E";}
+    60%{content: "Merhaba! Ben ";}
+    64%{content: "Merhaba! Be";}
+    68%{content: "Merhaba! B";}
+    72%{content: "Merhaba!";}
+    76%{content: "Merhaba";}
+    80%{content: "Merhab";}
+    84%{content: "Merha";}
+    88%{content: "Merh";}
+    92%{content: "Mer";}
+    96%{content: "Me";}
+    100%{content: "M";}
+}
+.social
+{
+    margin-top: 40px;
+}
+.social a
+{
+    color: #444;
+    padding: 5px;
+    transition: all 0.4s;
+}
+.social a:first-child:hover
+{
+    color: #e6683c; 
+}
+.social a:nth-child(2):hover
+{
+    color: #0A66C2; 
+}
+.social a:nth-child(3):hover
+{
+    color: aliceblue; 
+}
+.social a:last-child:hover
+{
+    color: #0A66C2; 
+}
+.break 
+{
+    flex-basis: 100%;
+    height: 0;
+}
+.avatar
+{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    border: 2px solid rgba(133, 94, 189, 0.5);
+    padding: 3px;
+}
+.btn-c
+{
+    background-color: transparent;
+    color: rgba(61, 59, 63, 1);
+    border: 2px solid rgba(61, 59, 63, 0.7);
+    border-radius: 10px;
+    width: 120px;
+    height: 40px;
+    margin: 40px 50px 0 0;
+    font-family: impact;
+}
+.btn-d
+{
+    background-color: transparent;
+    border-radius: 10px;
+    width: 120px;
+    height: 40px;
+    border: 2px solid rgba(61, 59, 63, 0.7);
+    color: rgba(61, 59, 63, 1);
+    margin: 40px 0 0 50px;
+    font-family: impact;
+}
+.btn-c:hover
+{
+    transition-duration: 0.4s;
+    background-color: rgba(61, 59, 63, 0.7);
+    border: 0;
+    color: aliceblue;
+    cursor: pointer;
+}
+.btn-d:hover
+{
+    transition-duration: 0.4s;
+    background-color: rgba(61, 59, 63, 0.7);
+    border: 0;
+    color: aliceblue;
+    cursor: pointer;
+}
+.mobile-menu
+{
+    position: fixed;
+    width: 50%;
+    height: 100%;
+    margin-left: -50%;
+    background-color: rgba(61, 59, 63, 0.3);
+    transition: all 0.4s;
+    z-index: 1;
+}
+.mobile-menu.active
+{
+    margin-left: 0;
+}
+.mobile-menu ul
+{
+    margin-left: 0px;
+    margin-top: 25%;
+    padding: 0;
+    text-decoration: none;
+    transition: all 0.4s;
+}
+.mobile-menu ul li
+{
+    list-style: none;
+    margin: 20px 50px;
+}
+.mobile-menu ul li a
+{
+    text-decoration: none;
+    color: rgba(61, 59, 63, 1);
+    font-size: 20px;
+    padding: 5px 20px;
+    border-radius: 15.5px;
+}
+.mobile-menu ul li a:hover
+{
+    transition-duration: 0.4s;
+    background-color: rgba(51, 50, 60, 0.4);
+    color: aliceblue;
+}
+.menu2
+{
+    display: none;
+    z-index: 2;
+}
+.menu
+{
+    z-index: 2;
+}
+@media screen and (max-width:720px) 
+{
+    nav ul 
+    {
+        margin-left: -1000px;
+    }
+    nav>a 
+    {
+        margin-top: 0px;
+    }
+    .container
+    {
+        width: 80%;
+    }
+    
+}
