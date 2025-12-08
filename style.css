@@ -154,7 +154,7 @@ nav ul li a:hover
 }
 .social a:last-child:hover
 {
-    color: #0A66C2; 
+    color: #999999; 
 }
 .break 
 {
@@ -179,6 +179,10 @@ nav ul li a:hover
     height: 40px;
     margin: 40px 0 0 0;
     font-family: impact;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .btn-d
 {
@@ -190,12 +194,15 @@ nav ul li a:hover
     color: rgba(61, 59, 63, 1);
     margin: 40px 0 0 50px;
     font-family: impact;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .btn-c:hover
 {
     transition-duration: 0.4s;
     background-color: rgba(61, 59, 63, 0.7);
-    border: 0;
     color: aliceblue;
     cursor: pointer;
 }
@@ -203,7 +210,6 @@ nav ul li a:hover
 {
     transition-duration: 0.4s;
     background-color: rgba(61, 59, 63, 0.7);
-    border: 0;
     color: aliceblue;
     cursor: pointer;
 }
