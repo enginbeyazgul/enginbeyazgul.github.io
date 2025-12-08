@@ -2,7 +2,7 @@ body
 {
     margin: 0;
     padding: 0;
-    font-family: impact;
+    font-family: 'Courier New', Courier, monospace; 
     background-image: url(img/bg.jpg);
     background-size: cover;
     background-attachment: fixed;
@@ -12,7 +12,6 @@ body
 {
     display: flex;
     justify-content: center;
-    
 }
 .c-col
 {
@@ -59,7 +58,8 @@ nav>a
     color: rgba(61, 59, 63, 1);
     padding-top: 15px;
     float: left;
-    transition: all 0.4s
+    transition: all 0.4s;
+    font-weight: bold;
 }
 nav ul
 {
@@ -79,6 +79,8 @@ nav ul li a
     font-size: 17px;
     padding: 5px 20px;
     border-radius: 15.5px;
+    font-weight: bold;
+    font-size: 18px;
 }
 nav ul li a:hover
 {
@@ -86,53 +88,9 @@ nav ul li a:hover
     background-color: rgba(51, 50, 60, 0.4);
     color: aliceblue;
 }
-
-.me
-{
-    color: rgba(61, 59, 63, 1);
-    
-}
-.me::after
-{
-    content: "";
-    animation: change ease-in 12s  infinite;
-}
-@keyframes change
-{
-    3%{content: "M";}
-    6%{content: "Me";}
-    9%{content: "Mer";}
-    12%{content: "Merh";}
-    15%{content: "Merha";}
-    18%{content: "Merhab";}
-    21%{content: "Merhaba";}
-    24%{content: "Merhaba!";}
-    27%{content: "Merhaba! B";}
-    30%{content: "Merhaba! Be";}
-    33%{content: "Merhaba! Ben";}
-    36%{content: "Merhaba! Ben E";}
-    39%{content: "Merhaba! Ben En";}
-    42%{content: "Merhaba! Ben Eng";}
-    45%{content: "Merhaba! Ben Engi";}
-    48%{content: "Merhaba! Ben Engin";}
-    51%{content: "Merhaba! Ben Engi";}
-    54%{content: "Merhaba! Ben En";}
-    57%{content: "Merhaba! Ben E";}
-    60%{content: "Merhaba! Ben ";}
-    64%{content: "Merhaba! Be";}
-    68%{content: "Merhaba! B";}
-    72%{content: "Merhaba!";}
-    76%{content: "Merhaba";}
-    80%{content: "Merhab";}
-    84%{content: "Merha";}
-    88%{content: "Merh";}
-    92%{content: "Mer";}
-    96%{content: "Me";}
-    100%{content: "M";}
-}
 .social
 {
-    margin-top: 40px;
+    margin-top: 20px;
 }
 .social a
 {
@@ -168,6 +126,7 @@ nav ul li a:hover
     height: 150px;
     border: 2px solid rgba(133, 94, 189, 0.5);
     padding: 3px;
+    margin-top: 50px;
 }
 .btn-c
 {
@@ -177,7 +136,7 @@ nav ul li a:hover
     border-radius: 10px;
     width: 120px;
     height: 40px;
-    margin: 40px 0 0 0;
+    margin: 80px 0 0 0;
     font-family: impact;
     text-decoration: none;
     display: flex;
@@ -192,7 +151,7 @@ nav ul li a:hover
     height: 40px;
     border: 2px solid rgba(61, 59, 63, 0.7);
     color: rgba(61, 59, 63, 1);
-    margin: 40px 0 0 50px;
+    margin: 80px 0 0 50px;
     font-family: impact;
     text-decoration: none;
     display: flex;
@@ -229,24 +188,29 @@ nav ul li a:hover
 }
 .mobile-menu ul
 {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
     margin-left: 0px;
-    margin-top: 25%;
+    margin-top: 40%;
     padding: 0;
     text-decoration: none;
     transition: all 0.4s;
+    border-top: 1pxs solid rgba(61, 59, 63, 0.7);
 }
 .mobile-menu ul li
 {
     list-style: none;
-    margin: 20px 50px;
+    margin: auto
 }
 .mobile-menu ul li a
 {
+    position: relative;
+    width: 100%;
     text-decoration: none;
     color: rgba(61, 59, 63, 1);
     font-size: 20px;
-    padding: 5px 20px;
-    border-radius: 15.5px;
+    padding: 10px 20px;
 }
 .mobile-menu ul li a:hover
 {
@@ -278,4 +242,60 @@ nav ul li a:hover
         width: 80%;
     }
     
+}
+/* -- Kapsayıcı Ayarları -- */
+.typing-effect {
+  font-family: 'Courier New', Courier, monospace; /* Monospace şart */
+  font-size: 24px;
+  line-height: 1.2;
+  color: #333;
+  display: inline-flex; /* Hizalamayı garantiye alır */
+  align-items: center;
+  margin-top: 25px;
+}
+
+/* -- Sanal Element (Yazı ve İmleç Buraya Geliyor) -- */
+.typing-effect::after {
+  content: "";
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid #02a2bc; 
+  animation: 
+    type-delete-smart 15s steps(35, end) infinite, 
+    blink-cursor .75s step-end infinite;            
+}
+@keyframes type-delete-smart {
+  0% { 
+    width: 0; 
+    content: "Merhaba! Ben Engin."; 
+  }
+  15% { 
+    width: 19ch;
+  }
+  40% { 
+    width: 19ch;
+  }
+  45% { 
+    width: 0;
+    content: "Merhaba! Ben Engin."; 
+  }
+  46% { 
+    width: 0;
+    content: "SAP ABAP Geliştiricisiyim."; /* İçerik değişti */
+  }
+  65% { 
+    width: 26ch;
+  }
+  90% { 
+    width: 26ch;
+  }
+  100% { 
+    width: 0;
+    content: "SAP ABAP Geliştiricisiyim."; 
+  }
+}
+@keyframes blink-cursor {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: #02a2bc; }
 }
