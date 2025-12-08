@@ -243,18 +243,15 @@ nav ul li a:hover
     }
     
 }
-/* -- Kapsayıcı Ayarları -- */
 .typing-effect {
-  font-family: 'Courier New', Courier, monospace; /* Monospace şart */
+  font-family: 'Courier New', Courier, monospace; 
   font-size: 24px;
   line-height: 1.2;
   color: #333;
-  display: inline-flex; /* Hizalamayı garantiye alır */
+  display: inline-flex;
   align-items: center;
   margin-top: 25px;
 }
-
-/* -- Sanal Element (Yazı ve İmleç Buraya Geliyor) -- */
 .typing-effect::after {
   content: "";
   display: block;
@@ -282,7 +279,7 @@ nav ul li a:hover
   }
   46% { 
     width: 0;
-    content: "SAP ABAP Geliştiricisiyim."; /* İçerik değişti */
+    content: "SAP ABAP Geliştiricisiyim.";
   }
   65% { 
     width: 26ch;
