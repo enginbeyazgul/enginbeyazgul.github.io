@@ -50,16 +50,14 @@ nav
     height: 100%;
     border-radius: 0 0 40px 40px;
 }
-nav>a
-{
-    margin-top: -200px;
+nav>a {
     position: absolute;
-    left: 0px;
+    left: 10px;
+    top: 15px;
     color: rgba(61, 59, 63, 1);
-    padding-top: 15px;
-    float: left;
     transition: all 0.4s;
     font-weight: bold;
+    display: none; /* Masaüstünde gizli olacak */
 }
 nav ul
 {
@@ -227,21 +225,25 @@ nav ul li a:hover
 {
     z-index: 2;
 }
-@media screen and (max-width:720px) 
-{
-    nav ul 
-    {
-        margin-left: -1000px;
+@media screen and (max-width: 720px) {
+    nav>a.menu {
+        display: block; 
     }
-    nav>a 
-    {
-        margin-top: 0px;
+    nav ul.c-inline-row {
+        display: none; 
     }
-    .container
-    {
-        width: 80%;
+    .container {
+        width: 90%; 
     }
-    
+    .typing-effect {
+        font-size: 18px; 
+    }
+    .btn-c {
+        margin: 40px 10px 0 0;
+    }
+    .btn-d {
+        margin: 40px 0 0 10px;
+    }
 }
 .typing-effect {
   font-family: 'Courier New', Courier, monospace; 
