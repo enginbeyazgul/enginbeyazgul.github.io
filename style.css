@@ -225,6 +225,129 @@ nav ul li a:hover
 {
     z-index: 2;
 }
+
+/* --- HAKKIMDA VE TIMELINE GENEL YAPISI --- */
+.content-wrapper {
+    width: 70%;
+    margin: 100px auto;
+    color: #333; /* Tasarımına göre bunu beyaz yapabilirsin eğer arkaplan koyuysa: #f4f4f4 */
+}
+
+.section-title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 50px;
+    color: #02a2bc;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.about-text p {
+    font-size: 18px;
+    line-height: 1.6;
+    text-align: justify;
+    color: rgba(61, 59, 63, 1);
+    background-color: rgba(255, 255, 255, 0.4); /* Arkaplanla okunabilirliği artırmak için hafif bir cam efekti */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* --- TIMELINE YAPISI --- */
+.timeline-section {
+    margin-top: 100px;
+}
+
+.timeline {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Ortadaki Çizgi */
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: rgba(133, 94, 189, 0.5);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+    border-radius: 5px;
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+    box-sizing: border-box;
+    /* Scroll animasyonu için başlangıç durumları */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease-in-out;
+}
+
+/* Görünürlük Sınıfı (JS tarafından eklenecek) */
+.timeline-item.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline-item.left { left: 0; }
+.timeline-item.right { left: 50%; }
+
+.timeline-icon {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    right: -20px;
+    background-color: #02a2bc;
+    border: 4px solid rgba(255, 255, 255, 0.8);
+    top: 15px;
+    border-radius: 50%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.timeline-item.right .timeline-icon {
+    left: -20px;
+}
+
+.timeline-content {
+    padding: 20px 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    position: relative;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.timeline-date {
+    display: inline-block;
+    color: #fff;
+    background-color: #02a2bc;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.timeline-content h3 {
+    margin: 0 0 10px 0;
+    color: rgba(61, 59, 63, 1);
+}
+
+.timeline-content h4 {
+    margin: 0;
+    font-weight: normal;
+    font-size: 15px;
+    color: #555;
+}
+
 @media screen and (max-width: 720px) {
     nav>a.menu {
         display: block; 
@@ -243,6 +366,13 @@ nav ul li a:hover
     }
     .btn-d {
         margin: 40px 0 0 10px;
+    }
+    .content-wrapper { width: 90%; }
+    .timeline::after { left: 31px; }
+    .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+    .timeline-item.left, .timeline-item.right { left: 0; }
+    .timeline-item.left .timeline-icon, .timeline-item.right .timeline-icon {
+        left: 11px;
     }
 }
 .typing-effect {

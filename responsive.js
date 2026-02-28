@@ -26,3 +26,18 @@ $(document).ready(function(){
         }
     });
 });
+document.addEventListener("DOMContentLoaded", function() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+            }
+        });
+    }, { 
+        threshold: 0.2 
+    });
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    timelineItems.forEach((item) => {
+        observer.observe(item);
+    });
+});
