@@ -25,7 +25,7 @@ $(document).ready(function(){
             $('.menu2').hide();
         }
     });
-});
+}); 
 document.addEventListener("DOMContentLoaded", function() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
