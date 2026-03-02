@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/png" href="/img/favicon.png" />
+		<meta name="generator" content={Astro.generator} />
+        <meta name="description" content="Engin Beyazgül - Kişisel Web Sitesi. SAP ABAP, Fiori ve modern web teknolojileri ile ilgileniyor." />
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+        
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P7NN9VFY2T"></script>
+        <script is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'G-P7NN9VFY2T');
+        </script>
+        
+        <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+		<title>Engin Beyazgül - SAP ABAP Developer</title>
+	</head>
+	<body>
+		<slot />
+        <script is:inline src="/responsive.js"></script>
+	</body>
+</html>

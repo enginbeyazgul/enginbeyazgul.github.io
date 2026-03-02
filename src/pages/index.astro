@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { sanityClient } from "sanity:client";
+import imageUrlBuilder from '@sanity/image-url'
+
+// Fetch Profile Data
+const profileQuery = `*[_type == "profile"][0] {
+  name,
+  title,
+  "imageUrl": profileImage.asset->url,
+  socialLinks
+}`;
+const profile = await sanityClient.fetch(profileQuery);
+
+// Helper to get image url if needed
+const builder = imageUrlBuilder(sanityClient)
+function urlFor(source) {
+  return builder.image(source)
+}
+
+const defaultAvatar = "img/avatar.jpg"
+const avatarUrl = profile?.imageUrl ? urlFor(profile.imageUrl).width(200).height(200).url() : defaultAvatar;
+const activeTitle = profile?.title || "SAP ABAP Developer";
+---
+
+<Layout>
+    <div class="mobile-menu">
+        <ul>
+            <li><a href="/">Anasayfa</a></li>
+            <li><a href="mailto:beyazgulengin@gmail.com">İletişim</a></li>
+            <li><a href="/about">Kimim Ben?</a></li>
+            <li><a href="https://medium.com/@enginbeyazgul">Blog</a></li>
+        </ul>
+    </div>
+    <header class="c-row">
+        <nav class="c-row">
+            <a class="menu" href="#"><i class="fas fa-bars fa-2x"></i></a>
+            <a class="menu2" href="#"><i class="fas fa-times fa-2x"></i></a>
+            <ul class="c-inline-row c-inline-col">
+                <li><a href="/">Anasayfa</a></li>
+                <li><a href="mailto:beyazgulengin@gmail.com">İletişim</a></li>
+                <li><a href="/about">Kimim Ben?</a></li>
+                <li><a href="https://medium.com/@enginbeyazgul">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container c-row">
+        <div><img class="avatar" src={avatarUrl} alt={profile?.name || "Engin Beyazgül"}></div>
+        <div class="break"></div>
+        <h1 class="typing-effect c-row" data-title={activeTitle}></h1>
+        <div class="break"></div>
+        <div class="social">
+            {profile?.socialLinks?.map(link => (
+                <a href={link.url}><i class={`fab fa-${link.platform.toLowerCase()} fa-2x`}></i></a>
+            )) || (
+                <>
+                    <a href="http://instagram.com/enginbeyazgul"><i class="fab fa-instagram fa-2x"></i></a>
+                    <a href="https://linkedin.com/in/enginbeyazgul"><i class="fab fa-linkedin fa-2x"></i></a>
+                    <a href="https://github.com/enginbeyazgul"><i class="fab fa-github fa-2x"></i></a>
+                    <a href="https://medium.com/@enginbeyazgul"><i class="fab fa-medium fa-2x"></i></a>
+                </>
+            )}
+        </div>
+        <div class="break"></div>
+        <a href="mailto:beyazgulengin@gmail.com" class="btn-c">Bana Ulaş</a>
+        <a href="/files/Engin Beyazgül - CV.pdf" download="Engin_Beyazgül_CV.pdf" class="btn-d">CV</a>
+    </div>
+</Layout>

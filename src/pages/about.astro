@@ -1,0 +1,202 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { sanityClient } from "sanity:client";
+import imageUrlBuilder from '@sanity/image-url'
+
+const profileQuery = `*[_type == "profile"][0] {
+  name,
+  bio,
+  "imageUrl": profileImage.asset->url
+}`;
+const profile = await sanityClient.fetch(profileQuery);
+
+const builder = imageUrlBuilder(sanityClient)
+function urlFor(source) {
+  return builder.image(source)
+}
+
+const defaultAvatar = "img/avatar.jpg"
+const avatarUrl = profile?.imageUrl ? urlFor(profile.imageUrl).width(300).height(300).url() : defaultAvatar;
+---
+
+<Layout>
+    <div class="mobile-menu">
+        <ul>
+            <li><a href="/">Anasayfa</a></li>
+            <li><a href="mailto:beyazgulengin@gmail.com">İletişim</a></li>
+            <li><a href="/about">Kimim Ben?</a></li>
+            <li><a href="https://medium.com/@enginbeyazgul">Blog</a></li>
+        </ul>
+    </div>
+
+    <header class="c-row">
+        <nav class="c-row">
+            <a class="menu" href="#"><i class="fas fa-bars fa-2x"></i></a>
+            <a class="menu2" href="#"><i class="fas fa-times fa-2x"></i></a>
+            <ul class="c-inline-row c-inline-col">
+                <li><a href="/">Anasayfa</a></li>
+                <li><a href="mailto:beyazgulengin@gmail.com">İletişim</a></li>
+                <li><a href="/about">Kimim Ben?</a></li>
+                <li><a href="https://medium.com/@enginbeyazgul">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content-wrapper">
+        <div class="c-row about-avatar">
+            <img class="avatar" src={avatarUrl} alt={profile?.name || "Engin Beyazgül"}>
+        </div>
+        
+        <section id="about" class="about-section">
+            <h2 class="section-title">KİMİM BEN?</h2>
+            <div class="about-text" data-type="about_summary" data-id="1">
+                {profile?.bio ? (
+                    <p>{profile.bio}</p>
+                ) : (
+                    <p>Yazılım serüvenim lise sıralarında web programcılığı ile başladı ve Kocaeli Üniversitesi Bilişim
+                        Sistemleri Mühendisliği eğitimiyle profesyonel bir zemine oturdu. Web kökenli geçmişim sayesinde
+                        bugün SAP dünyasının modern yüzü olan Fiori ve UI5 teknolojilerine çok daha hızlı ve doğal bir
+                        şekilde adapte olabiliyorum. Mevcut tecrübemi klasik ABAP disiplini, yeni nesil RAP ve OData
+                        mimarileriyle harmanlarken yapay zeka araçlarını da işimin doğal bir parçası haline getirerek daha
+                        verimli çalışmaya odaklanıyorum.
+                    <br><br>İş hayatında karşılaşılan krizlerin magazinsel arka planıyla vakit
+                        kaybetmek yerine doğrudan çözüme ve sistemin sürdürülebilirliğine odaklanmayı tercih ederim. Sadece
+                        kod yazıp kenara çekilen değil, Clean Code prensipleri ve DevOps kültürü gibi güncel metodolojileri
+                        takip eden, teknolojiyi iş süreçlerine değer katacak şekilde uyarlayan ve öğrenme heyecanını daima
+                        koruyan bir yol arkadaşı olarak kariyerime devam ediyorum.
+                    </p>
+                )}
+            </div>
+        </section>
+
+        <section id="skills" class="skills-section">
+            <h2 class="section-title">YETENEKLER</h2>
+            <div class="minimal-skills-cloud" data-type="skills" data-id="2">
+                <span class="m-skill">SAP ABAP</span>
+                <span class="m-skill">ABAP OOP</span>
+                <span class="m-skill">CDS Views</span>
+                <span class="m-skill">OData</span>
+                <span class="m-skill">SAP RAP</span>
+                <span class="m-skill">Fiori / UI5</span>
+                <span class="m-skill">ALV</span>
+                <span class="m-skill">SmartForms & Adobe Forms</span>
+                <span class="m-skill">BAPI & BADI</span>
+                <span class="m-skill">User-Exit</span>
+                <span class="m-skill">RFC</span>
+                <span class="m-skill">HTML & CSS</span>
+                <span class="m-skill">JavaScript (jQuery)</span>
+                <span class="m-skill">PHP</span>
+                <span class="m-skill">SQL</span>
+                <span class="m-skill">JSON & XML</span>
+                <span class="m-skill">Yapay Zeka (AI)</span>
+                <span class="m-skill">Git</span>
+            </div> 
+        </section>
+
+        <section id="experience" class="timeline-section">
+            <h2 class="section-title">DENEYİM & EĞİTİM</h2>
+            <div class="timeline" id="dynamic-timeline">
+                
+                <div class="timeline-item left" data-type="experience" data-id="1">
+                    <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Ağu 2025 - Devam Ediyor</span>
+                        <h3>ABAP Specialist</h3>
+                        <h4>Yıldızlar Yatırım Holding - İstanbul</h4>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right" data-type="experience" data-id="2">
+                    <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Ağu 2023 - Ağu 2025</span>
+                        <h3>ABAP Assistant Specialist</h3>
+                        <h4>Yıldızlar Yatırım Holding - İstanbul</h4>
+                    </div>
+                </div>
+
+                <div class="timeline-item left" data-type="education" data-id="3">
+                    <div class="timeline-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2018 - 2023</span>
+                        <h3>Bilişim Sistemleri Mühendisliği</h3>
+                        <h4>Kocaeli Üniversitesi</h4>
+                    </div>
+                </div>
+
+                <div class="timeline-item right" data-type="experience" data-id="4">
+                    <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Şub 2023 - May 2023</span>
+                        <h3>ABAP Assistant Specialist</h3>
+                        <h4>Yıldızlar Yatırım Holding - Kocaeli</h4>
+                    </div>
+                </div>
+
+                <div class="timeline-item left" data-type="experience" data-id="5">
+                    <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Eki 2022 - Şub 2023</span>
+                        <h3>ABAP Assistant Specialist (Yarı Zamanlı)</h3>
+                        <h4>Yıldızlar Yatırım Holding - Kocaeli</h4>
+                    </div>
+                </div>
+
+                <div class="timeline-item right" data-type="experience" data-id="6">
+                    <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Tem 2022 - Eyl 2022</span>
+                        <h3>Summer Intern</h3>
+                        <h4>Yıldızlar Yatırım Holding</h4>
+                    </div>
+                </div>
+
+                <div class="timeline-item left" data-type="experience" data-id="7">
+                    <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Haz 2021 - Tem 2021</span>
+                        <h3>Summer Intern</h3>
+                        <h4>GD Dijital Ajans</h4>
+                    </div>
+                </div>
+
+                <div class="timeline-item right" data-type="experience" data-id="8">
+                    <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Tem 2017 - Nis 2018</span>
+                        <h3>Staff of Occupational Safety Health</h3>
+                        <h4>Gemak Group of Companies</h4>
+                    </div>
+                </div>
+
+                <div class="timeline-item left" data-type="education" data-id="9">
+                    <div class="timeline-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2013 - 2017</span>
+                        <h3>Bilişim Teknisyeni</h3>
+                        <h4>Pendik Şehit Murat Mertel MTAL</h4>
+                    </div>
+                </div>
+
+                <div class="timeline-item right" data-type="experience" data-id="10">
+                    <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Tem 2016 - Ağu 2016</span>
+                        <h3>Summer Intern</h3>
+                        <h4>Türk Telekom</h4>
+                    </div>
+                </div>
+
+                <div class="timeline-item left" data-type="experience" data-id="11">
+                    <div class="timeline-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Tem 2015 - Ağu 2015</span>
+                        <h3>Summer Intern</h3>
+                        <h4>Sporfashion</h4>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</Layout>
