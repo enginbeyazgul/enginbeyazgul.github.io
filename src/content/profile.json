@@ -1,0 +1,24 @@
+{
+    "name": "Engin Beyazgül",
+    "title": "SAP ABAP Developer",
+    "bio": "Yazılım serüvenim lise sıralarında web programcılığı ile başladı ve Kocaeli Üniversitesi Bilişim Sistemleri Mühendisliği eğitimiyle profesyonel bir zemine oturdu. Web kökenli geçmişim sayesinde bugün SAP dünyasının modern yüzü olan Fiori ve UI5 teknolojilerine çok daha hızlı ve doğal bir şekilde adapte olabiliyorum. Mevcut tecrübemi klasik ABAP disiplini, yeni nesil RAP ve OData mimarileriyle harmanlarken yapay zeka araçlarını da işimin doğal bir parçası haline getirerek daha verimli çalışmaya odaklanıyorum.\n\nİş hayatında karşılaşılan krizlerin magazinsel arka planıyla vakit kaybetmek yerine doğrudan çözüme ve sistemin sürdürülebilirliğine odaklanmayı tercih ederim. Sadece kod yazıp kenara çekilen değil, Clean Code prensipleri ve DevOps kültürü gibi güncel metodolojileri takip eden, teknolojiyi iş süreçlerine değer katacak şekilde uyarlayan ve öğrenme heyecanını daima koruyan bir yol arkadaşı olarak kariyerime devam ediyorum.",
+    "imageUrl": "/img/avatar.jpg",
+    "socialLinks": [
+        {
+            "platform": "instagram",
+            "url": "http://instagram.com/enginbeyazgul"
+        },
+        {
+            "platform": "linkedin",
+            "url": "https://linkedin.com/in/enginbeyazgul"
+        },
+        {
+            "platform": "github",
+            "url": "https://github.com/enginbeyazgul"
+        },
+        {
+            "platform": "medium",
+            "url": "https://medium.com/@enginbeyazgul"
+        }
+    ]
+}

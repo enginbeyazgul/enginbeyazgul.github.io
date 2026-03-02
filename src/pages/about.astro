@@ -1,22 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { sanityClient } from "sanity:client";
-import imageUrlBuilder from '@sanity/image-url'
-
-const profileQuery = `*[_type == "profile"][0] {
-  name,
-  bio,
-  "imageUrl": profileImage.asset->url
-}`;
-const profile = await sanityClient.fetch(profileQuery);
-
-const builder = imageUrlBuilder(sanityClient)
-function urlFor(source) {
-  return builder.image(source)
-}
+import profile from '../content/profile.json';
 
 const defaultAvatar = "/img/avatar.jpg"
-const avatarUrl = profile?.imageUrl ? urlFor(profile.imageUrl).width(300).height(300).url() : defaultAvatar;
+const avatarUrl = profile.imageUrl || defaultAvatar;
 ---
 
 <Layout>

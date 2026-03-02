@@ -1,25 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { sanityClient } from "sanity:client";
-import imageUrlBuilder from '@sanity/image-url'
+import profile from '../content/profile.json';
 
-// Fetch Profile Data
-const profileQuery = `*[_type == "profile"][0] {
-  name,
-  title,
-  "imageUrl": profileImage.asset->url,
-  socialLinks
-}`;
-const profile = await sanityClient.fetch(profileQuery);
-
-// Helper to get image url if needed
-const builder = imageUrlBuilder(sanityClient)
-function urlFor(source) {
-  return builder.image(source)
-}
-
-const defaultAvatar = "img/avatar.jpg"
-const avatarUrl = profile?.imageUrl ? urlFor(profile.imageUrl).width(200).height(200).url() : defaultAvatar;
+const defaultAvatar = "/img/avatar.jpg"
+const avatarUrl = profile.imageUrl || defaultAvatar;
 const activeTitle = profile?.title || "SAP ABAP Developer";
 ---
 
