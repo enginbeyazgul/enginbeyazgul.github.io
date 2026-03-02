@@ -1,0 +1,288 @@
+---
+---
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yönetim Paneli | Engin Beyazgül</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            color: #02a2bc;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="password"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        .btn {
+            background-color: #02a2bc;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #018298;
+        }
+        #auth-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #02a2bc;
+        }
+        #editor-section {
+            display: none;
+        }
+        .status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        .status.success {
+            background-color: #d4edda;
+            color: #155724;
+            display: block;
+        }
+        .status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+        .info-text {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        .loader {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #02a2bc;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1><i class="fas fa-user-cog"></i> İçerik Yönetim Paneli</h1>
+    
+    <div id="auth-section">
+        <h3>GitHub Kimlik Doğrulama</h3>
+        <p class="info-text">GitHub "Personal Access Token" (Classic) ile giriş yapın. Token'ın 'repo' yetkisi olması gerekir.</p>
+        <div class="form-group">
+            <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off">
+        </div>
+        <button class="btn" id="login-btn" onclick="fetchData()">Bağlan ve Verileri Getir</button>
+        <div class="loader" id="login-loader"></div>
+        <div id="login-status" class="status"></div>
+    </div>
+
+    <div id="editor-section">
+        <div class="form-group">
+            <label for="profile-name">Ad Soyad</label>
+            <input type="text" id="profile-name">
+        </div>
+        <div class="form-group">
+            <label for="profile-title">Ünvan</label>
+            <input type="text" id="profile-title">
+        </div>
+        <div class="form-group">
+            <label for="profile-bio">Hakkımda</label>
+            <textarea id="profile-bio"></textarea>
+            <p class="info-text">Satır atlamak için Enter tuşunu kullanabilirsiniz.</p>
+        </div>
+        <div class="form-group">
+            <label for="profile-image">Profil Fotoğrafı Yolu</label>
+            <input type="text" id="profile-image" value="/img/avatar.jpg">
+        </div>
+        
+        <button class="btn" id="save-btn" onclick="saveData()"><i class="fas fa-save"></i> Değişiklikleri Siteme Gönder (Yayınla)</button>
+        <div class="loader" id="save-loader"></div>
+        <div id="save-status" class="status"></div>
+    </div>
+</div>
+
+<script>
+    const repoOwner = 'enginbeyazgul';
+    const repoName = 'enginbeyazgul.github.io';
+    const filePath = 'src/content/profile.json';
+    const branch = 'main';
+    
+    let currentSha = '';
+    let currentSocialLinks = [];
+
+    // Base64 encoding/decoding helper that supports UTF-8 (Turkish chars)
+    function b64EncodeUnicode(str) {
+        return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+            function toSolidBytes(match, p1) {
+                return String.fromCharCode('0x' + p1);
+        }));
+    }
+
+    function b64DecodeUnicode(str) {
+        return decodeURIComponent(atob(str).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    }
+
+    async function fetchData() {
+        const token = document.getElementById('github-token').value.trim();
+        const statusDiv = document.getElementById('login-status');
+        const loader = document.getElementById('login-loader');
+        
+        if(!token) {
+            showStatus(statusDiv, 'Lütfen bir Token girin.', 'error');
+            return;
+        }
+
+        loader.style.display = 'block';
+        statusDiv.className = 'status';
+        statusDiv.innerHTML = '';
+
+        try {
+            const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}?ref=${branch}`, {
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Bağlantı hatası. Yetkiniz yok veya Token yanlış.');
+            }
+
+            const data = await response.json();
+            currentSha = data.sha; // We need this to update the file later
+            
+            const content = JSON.parse(b64DecodeUnicode(data.content));
+            
+            // Populate form
+            document.getElementById('profile-name').value = content.name;
+            document.getElementById('profile-title').value = content.title;
+            document.getElementById('profile-bio').value = content.bio;
+            document.getElementById('profile-image').value = content.imageUrl;
+            currentSocialLinks = content.socialLinks; // keep intact
+
+            // Show editor
+            document.getElementById('auth-section').style.display = 'none';
+            document.getElementById('editor-section').style.display = 'block';
+            
+        } catch (error) {
+            showStatus(statusDiv, error.message, 'error');
+        } finally {
+            loader.style.display = 'none';
+        }
+    }
+
+    async function saveData() {
+        const token = document.getElementById('github-token').value.trim();
+        const statusDiv = document.getElementById('save-status');
+        const loader = document.getElementById('save-loader');
+        
+        loader.style.display = 'block';
+        statusDiv.className = 'status';
+        statusDiv.innerHTML = '';
+
+        // Prepare new JSON content
+        const newContent = {
+            name: document.getElementById('profile-name').value.trim(),
+            title: document.getElementById('profile-title').value.trim(),
+            bio: document.getElementById('profile-bio').value.trim(),
+            imageUrl: document.getElementById('profile-image').value.trim(),
+            socialLinks: currentSocialLinks
+        };
+
+        const contentString = JSON.stringify(newContent, null, 2);
+        const encodedContent = b64EncodeUnicode(contentString);
+
+        try {
+            const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: `📝 İçerik güncellendi: ${newContent.name} (Admin Panel)`,
+                    content: encodedContent,
+                    sha: currentSha,
+                    branch: branch
+                })
+            });
+
+            if (!response.ok) {
+                const errData = await response.json();
+                throw new Error('Kaydetme başarısız: ' + errData.message);
+            }
+
+            const data = await response.json();
+            currentSha = data.content.sha; // Update SHA for consecutive saves
+            
+            showStatus(statusDiv, '✅ Başarıyla kaydedildi! GitHub Actions sitenizi şu an derlemeye başladı. 1-2 dakika içinde yayında olacak.', 'success');
+            
+        } catch (error) {
+            showStatus(statusDiv, error.message, 'error');
+        } finally {
+            loader.style.display = 'none';
+        }
+    }
+
+    function showStatus(element, message, type) {
+        element.innerHTML = message;
+        element.className = `status ${type}`;
+    }
+</script>
+
+</body>
+</html>
