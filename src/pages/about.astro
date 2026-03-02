@@ -15,7 +15,7 @@ function urlFor(source) {
   return builder.image(source)
 }
 
-const defaultAvatar = "img/avatar.jpg"
+const defaultAvatar = "/img/avatar.jpg"
 const avatarUrl = profile?.imageUrl ? urlFor(profile.imageUrl).width(300).height(300).url() : defaultAvatar;
 ---
 
